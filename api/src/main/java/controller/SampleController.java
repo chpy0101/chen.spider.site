@@ -1,9 +1,6 @@
 package controller;
 
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -16,6 +13,6 @@ public class SampleController {
 
     @RequestMapping()
     public String home() {
-        return "aa";
+         return  "aa";
     }
 }
