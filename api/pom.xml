@@ -11,6 +11,7 @@
     <packaging>jar</packaging>
 
     <artifactId>api</artifactId>
+
     <build>
         <!-- 为jar包取名 -->
         <finalName>spider</finalName>
@@ -21,13 +22,13 @@
                 <configuration>
                     <fork>true</fork>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>springloaded</artifactId>
-                        <version>1.2.6.RELEASE</version>
-                    </dependency>
-                </dependencies>
+                <!--<dependencies>-->
+                    <!--<dependency>-->
+                        <!--<groupId>org.springframework</groupId>-->
+                        <!--<artifactId>springloaded</artifactId>-->
+                        <!--<version>1.2.6.RELEASE</version>-->
+                    <!--</dependency>-->
+                <!--</dependencies>-->
             </plugin>
         </plugins>
     </build>
