@@ -9,8 +9,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class MyBootConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		System.out.println("test:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+		System.out.println("test:::::::::::::sss:::::::::::::::::::::::::::::::::::::11111:::::::::::::::");
 		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
 		super.addResourceHandlers(registry);
+
 	}
 }

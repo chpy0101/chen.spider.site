@@ -11,6 +11,12 @@
     <packaging>jar</packaging>
 
     <artifactId>api</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+    </dependencies>
 
     <build>
         <!-- 为jar包取名 -->
