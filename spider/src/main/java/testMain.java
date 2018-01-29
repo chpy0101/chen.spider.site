@@ -8,12 +8,12 @@ public class testMain {
     public static void main(String[] args) {
         testController controller = new testController(false);
 
-        controller.set_callBackMapper((s) -> {
+        controller.set_callBackFunction((s) -> {
             return 1;
         });
 
         try {
-            System.out.print(controller.getDataThenMapper());
+            System.out.print(controller.getDataThenCallBackAsync());
         } catch (Exception e) {
             e.printStackTrace();
         }
