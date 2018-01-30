@@ -12,4 +12,10 @@ public abstract class baseMapper<T, R> implements Function<T, R> {
 		T temp = data instanceof DeepCopy ? ((DeepCopy<T>) data).copy() : data;
 		return mapper(temp);
 	}
+
+	@Override
+	public R apply(T t) {
+		return copyMapper(t);
+	}
 }
+
