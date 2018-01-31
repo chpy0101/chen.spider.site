@@ -1,3 +1,4 @@
+import controller.eastmoneyChartsController;
 import controller.testController;
 
 /**
@@ -6,16 +7,8 @@ import controller.testController;
 public class testMain {
 
     public static void main(String[] args) {
-        testController controller = new testController(false);
+        eastmoneyChartsController controller = new eastmoneyChartsController(false);
 
-        controller.set_callBackFunction((s) -> {
-            return 1;
-        });
-
-        try {
-            System.out.print(controller.getDataThenCallBackAsync());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        controller.getData();
     }
 }
