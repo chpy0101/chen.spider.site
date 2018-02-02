@@ -4,6 +4,9 @@ import entity.DeepCopy;
 
 public class yybIncreaseEntity implements DeepCopy<yybIncreaseEntity> {
 
+	public yybIncreaseEntity() {
+	}
+
 	public yybIncreaseEntity(String name, String id, int rate, double oneDayIncreaseRate, double oneDayIncreasePro, int oneDayBuyTimes, double threeDayIncreaseRate, double threeDayIncreasePro, int threeDayBuyTimes, double fiveDayIncreaseRate, double fiveDayIncreasePro, int fiveDayBuyTimes, double tenDayIncreaseRate, double tenDayIncreasePro, int tenDayBuyTimes) {
 		this.name = name;
 		this.id = id;
@@ -89,5 +92,125 @@ public class yybIncreaseEntity implements DeepCopy<yybIncreaseEntity> {
 		return new yybIncreaseEntity(
 				name, id, rate, oneDayIncreaseRate, oneDayIncreasePro, oneDayBuyTimes, threeDayIncreaseRate, threeDayIncreasePro, threeDayBuyTimes, fiveDayIncreaseRate, fiveDayIncreasePro, fiveDayBuyTimes, tenDayIncreaseRate, tenDayIncreasePro, tenDayBuyTimes
 		);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public int getRate() {
+		return rate;
+	}
+
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
+
+	public double getOneDayIncreaseRate() {
+		return oneDayIncreaseRate;
+	}
+
+	public void setOneDayIncreaseRate(double oneDayIncreaseRate) {
+		this.oneDayIncreaseRate = oneDayIncreaseRate;
+	}
+
+	public double getOneDayIncreasePro() {
+		return oneDayIncreasePro;
+	}
+
+	public void setOneDayIncreasePro(double oneDayIncreasePro) {
+		this.oneDayIncreasePro = oneDayIncreasePro;
+	}
+
+	public int getOneDayBuyTimes() {
+		return oneDayBuyTimes;
+	}
+
+	public void setOneDayBuyTimes(int oneDayBuyTimes) {
+		this.oneDayBuyTimes = oneDayBuyTimes;
+	}
+
+	public double getThreeDayIncreaseRate() {
+		return threeDayIncreaseRate;
+	}
+
+	public void setThreeDayIncreaseRate(double threeDayIncreaseRate) {
+		this.threeDayIncreaseRate = threeDayIncreaseRate;
+	}
+
+	public double getThreeDayIncreasePro() {
+		return threeDayIncreasePro;
+	}
+
+	public void setThreeDayIncreasePro(double threeDayIncreasePro) {
+		this.threeDayIncreasePro = threeDayIncreasePro;
+	}
+
+	public int getThreeDayBuyTimes() {
+		return threeDayBuyTimes;
+	}
+
+	public void setThreeDayBuyTimes(int threeDayBuyTimes) {
+		this.threeDayBuyTimes = threeDayBuyTimes;
+	}
+
+	public double getFiveDayIncreaseRate() {
+		return fiveDayIncreaseRate;
+	}
+
+	public void setFiveDayIncreaseRate(double fiveDayIncreaseRate) {
+		this.fiveDayIncreaseRate = fiveDayIncreaseRate;
+	}
+
+	public double getFiveDayIncreasePro() {
+		return fiveDayIncreasePro;
+	}
+
+	public void setFiveDayIncreasePro(double fiveDayIncreasePro) {
+		this.fiveDayIncreasePro = fiveDayIncreasePro;
+	}
+
+	public int getFiveDayBuyTimes() {
+		return fiveDayBuyTimes;
+	}
+
+	public void setFiveDayBuyTimes(int fiveDayBuyTimes) {
+		this.fiveDayBuyTimes = fiveDayBuyTimes;
+	}
+
+	public double getTenDayIncreaseRate() {
+		return tenDayIncreaseRate;
+	}
+
+	public void setTenDayIncreaseRate(double tenDayIncreaseRate) {
+		this.tenDayIncreaseRate = tenDayIncreaseRate;
+	}
+
+	public double getTenDayIncreasePro() {
+		return tenDayIncreasePro;
+	}
+
+	public void setTenDayIncreasePro(double tenDayIncreasePro) {
+		this.tenDayIncreasePro = tenDayIncreasePro;
+	}
+
+	public int getTenDayBuyTimes() {
+		return tenDayBuyTimes;
+	}
+
+	public void setTenDayBuyTimes(int tenDayBuyTimes) {
+		this.tenDayBuyTimes = tenDayBuyTimes;
 	}
 }
