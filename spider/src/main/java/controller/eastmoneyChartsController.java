@@ -8,10 +8,7 @@ import util.DateUtil;
 import util.httpHelper;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,12 +44,26 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 
 	@Override
 	public List<yybIncreaseEntity> getData() {
+
+		//获取营业部信息。并筛选
+		List<yybIncreaseEntity> list = getyybInfo(DateUtil.addMonth(DateUtil.nowDate(), -3), DateUtil.nowDate());
+		//排序顺序五天，三天涨幅靠前，
+		list.stream().filter(t -> {
+			return t.getRate() > 0;
+		}).sorted((x1, x2) -> {
+			return (int) (x1.getRate() - x2.getRate());
+		});
+		return null;
+	}
+
+	public List<yybIncreaseEntity> getyybInfo(Date startTime, Date endTime) {
+
 		List<yybIncreaseEntity> yybInfo = new ArrayList<>();
 
 		//获取总页数
 		Integer pageCount = 50;
-		String startTime = DateUtil.formatDate(DateUtil.addMonth(DateUtil.nowDate(), -6), DATE_FORMAT);
-		String endTime = DateUtil.formatDate(DateUtil.nowDate(), DATE_FORMAT);
+		String startStr = DateUtil.formatDate(startTime, DATE_FORMAT);
+		String endStr = DateUtil.formatDate(endTime, DATE_FORMAT);
 		String startResponse = httpHelper.get(MessageFormat.format(START_URL, startTime, endTime), null);
 		String regex = "(?<=\"pages\":)[\\d]+?(?=,)";
 		Pattern pattern = Pattern.compile(regex);
@@ -65,8 +76,8 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 		paramsConfi.put("cfg", "yybph");
 		paramsConfi.put("salesCode", "");
 		paramsConfi.put("monthNum", "");
-		paramsConfi.put("startDateTime", startTime);
-		paramsConfi.put("endDateTime", endTime);
+		paramsConfi.put("startDateTime", startStr);
+		paramsConfi.put("endDateTime", endStr);
 		paramsConfi.put("sortfield", "AvgRate2DC");
 		paramsConfi.put("sortdirec", "1");
 		paramsConfi.put("pageNum", "");
@@ -86,7 +97,7 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 				}
 				//赋值
 				for (String valueStr : resJson.getData().get(0).getData()) {
-					String[] value = valueStr.split("|");
+					String[] value = valueStr.split("\\|");
 					yybIncreaseEntity entity = new yybIncreaseEntity();
 					entity.setOneDayBuyTimes(Integer.parseInt(value[YYB_FIELDMAP.get("BCount1DC")]));
 					entity.setOneDayIncreaseRate(Double.parseDouble(value[YYB_FIELDMAP.get("AvgRate1DC")]));
@@ -98,8 +109,8 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 					entity.setFiveDayIncreaseRate(Double.parseDouble(value[YYB_FIELDMAP.get("AvgRate5DC")]));
 					entity.setFiveDayIncreasePro(Double.parseDouble(value[YYB_FIELDMAP.get("UpRate5DC")]));
 					entity.setTenDayBuyTimes(Integer.parseInt(value[YYB_FIELDMAP.get("BCount10DC")]));
-					entity.setTenDayBuyTimes(Integer.parseInt(value[YYB_FIELDMAP.get("BCount10DC")]));
-					entity.setTenDayBuyTimes(Integer.parseInt(value[YYB_FIELDMAP.get("BCount10DC")]));
+					entity.setTenDayIncreaseRate(Integer.parseInt(value[YYB_FIELDMAP.get("AvgRate10DC")]));
+					entity.setTenDayIncreasePro(Integer.parseInt(value[YYB_FIELDMAP.get("UpRate10DC")]));
 
 					entity.setName(value[YYB_FIELDMAP.get("SalesName")]);
 					entity.setId(value[YYB_FIELDMAP.get("SalesCode")]);
@@ -113,6 +124,6 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 				e.printStackTrace();
 			}
 		}
-		return null;
+		return yybInfo;
 	}
 }

@@ -7,10 +7,9 @@ public class yybIncreaseEntity implements DeepCopy<yybIncreaseEntity> {
 	public yybIncreaseEntity() {
 	}
 
-	public yybIncreaseEntity(String name, String id, int rate, double oneDayIncreaseRate, double oneDayIncreasePro, int oneDayBuyTimes, double threeDayIncreaseRate, double threeDayIncreasePro, int threeDayBuyTimes, double fiveDayIncreaseRate, double fiveDayIncreasePro, int fiveDayBuyTimes, double tenDayIncreaseRate, double tenDayIncreasePro, int tenDayBuyTimes) {
+	public yybIncreaseEntity(String name, String id, double oneDayIncreaseRate, double oneDayIncreasePro, int oneDayBuyTimes, double threeDayIncreaseRate, double threeDayIncreasePro, int threeDayBuyTimes, double fiveDayIncreaseRate, double fiveDayIncreasePro, int fiveDayBuyTimes, double tenDayIncreaseRate, double tenDayIncreasePro, int tenDayBuyTimes) {
 		this.name = name;
 		this.id = id;
-		this.rate = rate;
 		this.oneDayIncreaseRate = oneDayIncreaseRate;
 		this.oneDayIncreasePro = oneDayIncreasePro;
 		this.oneDayBuyTimes = oneDayBuyTimes;
@@ -36,7 +35,7 @@ public class yybIncreaseEntity implements DeepCopy<yybIncreaseEntity> {
 	/**
 	 * 排名
 	 */
-	private int rate;
+	private double rate;
 	/**
 	 * 一天涨幅
 	 */
@@ -90,7 +89,7 @@ public class yybIncreaseEntity implements DeepCopy<yybIncreaseEntity> {
 	@Override
 	public yybIncreaseEntity copy() {
 		return new yybIncreaseEntity(
-				name, id, rate, oneDayIncreaseRate, oneDayIncreasePro, oneDayBuyTimes, threeDayIncreaseRate, threeDayIncreasePro, threeDayBuyTimes, fiveDayIncreaseRate, fiveDayIncreasePro, fiveDayBuyTimes, tenDayIncreaseRate, tenDayIncreasePro, tenDayBuyTimes
+				name, id, oneDayIncreaseRate, oneDayIncreasePro, oneDayBuyTimes, threeDayIncreaseRate, threeDayIncreasePro, threeDayBuyTimes, fiveDayIncreaseRate, fiveDayIncreasePro, fiveDayBuyTimes, tenDayIncreaseRate, tenDayIncreasePro, tenDayBuyTimes
 		);
 	}
 
@@ -110,12 +109,14 @@ public class yybIncreaseEntity implements DeepCopy<yybIncreaseEntity> {
 		this.id = id;
 	}
 
-	public int getRate() {
+	public double getRate() {
+		if (rate == 0) {
+			if (this.oneDayIncreaseRate >= 10 || this.threeDayBuyTimes < 3) {
+				this.rate = -100;
+			}
+			rate = this.fiveDayIncreaseRate / 5 * 2 + this.fiveDayIncreasePro * 5 + this.threeDayIncreaseRate / 3 + this.threeDayIncreasePro * 3;
+		}
 		return rate;
-	}
-
-	public void setRate(int rate) {
-		this.rate = rate;
 	}
 
 	public double getOneDayIncreaseRate() {
