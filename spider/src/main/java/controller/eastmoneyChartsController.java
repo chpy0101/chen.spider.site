@@ -18,6 +18,7 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 
 	private static final String YYB_URL = "http://datainterface3.eastmoney.com//EM_DataCenter_V3/api/LHBYYBPH/GetLHBYYBPH";
 	private static final String START_URL = "http://data.eastmoney.com/DataCenter_V3/stock2016/BusinessRanking/pagesize=50,page=1,sortRule=-1,sortType=AvgRate2DC,startDate={0},endDate={1},gpfw=0,js=var%20data_tab_1.html";
+	private static final String YYBSTOCK_URL = "http://datainterface3.eastmoney.com//EM_DataCenter_V3/api/YYBJXMX/GetYYBJXMX?tkn=eastmoney&salesCode={0}&tdir=&dayNum=&startDateTime={1}&endDateTime={2}&sortfield=&sortdirec=1&pageNum=1&pageSize=50&cfg=yybjymx";
 	private static final String DATE_FORMAT = "yyyy-MM-dd";
 	private static final Map<String, Integer> YYB_FIELDMAP = new HashMap<String, Integer>() {
 		{
@@ -48,14 +49,18 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 		//获取营业部信息。并筛选
 		List<yybIncreaseEntity> list = getyybInfo(DateUtil.addMonth(DateUtil.nowDate(), -3), DateUtil.nowDate());
 		//排序顺序五天，三天涨幅靠前，
-		list.stream().filter(t -> {
-			return t.getRate() > 0;
-		}).sorted((x1, x2) -> {
-			return (int) (x1.getRate() - x2.getRate());
-		});
+		long count = list.stream().filter(t -> t.getRate() > 0).sorted((x1, x2) -> {
+			return Double.compare(x1.getRate(), x2.getRate());
+		}).count();
 		return null;
 	}
 
+	/**
+	 * 获取营业部列表
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
 	public List<yybIncreaseEntity> getyybInfo(Date startTime, Date endTime) {
 
 		List<yybIncreaseEntity> yybInfo = new ArrayList<>();
@@ -100,18 +105,25 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 					String[] value = valueStr.split("\\|");
 					yybIncreaseEntity entity = new yybIncreaseEntity();
 					entity.setOneDayBuyTimes(Integer.parseInt(value[YYB_FIELDMAP.get("BCount1DC")]));
-					entity.setOneDayIncreaseRate(Double.parseDouble(value[YYB_FIELDMAP.get("AvgRate1DC")]));
-					entity.setOneDayIncreasePro(Double.parseDouble(value[YYB_FIELDMAP.get("UpRate1DC")]));
+					if (entity.getOneDayBuyTimes() > 0) {
+						entity.setOneDayIncreaseRate(Double.parseDouble(value[YYB_FIELDMAP.get("AvgRate1DC")]));
+						entity.setOneDayIncreasePro(Double.parseDouble(value[YYB_FIELDMAP.get("UpRate1DC")]));
+					}
 					entity.setThreeDayBuyTimes(Integer.parseInt(value[YYB_FIELDMAP.get("BCount3DC")]));
-					entity.setThreeDayIncreaseRate(Double.parseDouble(value[YYB_FIELDMAP.get("AvgRate3DC")]));
-					entity.setThreeDayIncreasePro(Double.parseDouble(value[YYB_FIELDMAP.get("UpRate3DC")]));
+					if (entity.getThreeDayBuyTimes() > 0) {
+						entity.setThreeDayIncreaseRate(Double.parseDouble(value[YYB_FIELDMAP.get("AvgRate3DC")]));
+						entity.setThreeDayIncreasePro(Double.parseDouble(value[YYB_FIELDMAP.get("UpRate3DC")]));
+					}
 					entity.setFiveDayBuyTimes(Integer.parseInt(value[YYB_FIELDMAP.get("BCount5DC")]));
-					entity.setFiveDayIncreaseRate(Double.parseDouble(value[YYB_FIELDMAP.get("AvgRate5DC")]));
-					entity.setFiveDayIncreasePro(Double.parseDouble(value[YYB_FIELDMAP.get("UpRate5DC")]));
+					if (entity.getFiveDayBuyTimes() > 0) {
+						entity.setFiveDayIncreaseRate(Double.parseDouble(value[YYB_FIELDMAP.get("AvgRate5DC")]));
+						entity.setFiveDayIncreasePro(Double.parseDouble(value[YYB_FIELDMAP.get("UpRate5DC")]));
+					}
 					entity.setTenDayBuyTimes(Integer.parseInt(value[YYB_FIELDMAP.get("BCount10DC")]));
-					entity.setTenDayIncreaseRate(Integer.parseInt(value[YYB_FIELDMAP.get("AvgRate10DC")]));
-					entity.setTenDayIncreasePro(Integer.parseInt(value[YYB_FIELDMAP.get("UpRate10DC")]));
-
+					if (entity.getTenDayBuyTimes() > 0) {
+						entity.setTenDayIncreaseRate(Double.parseDouble(value[YYB_FIELDMAP.get("AvgRate10DC")]));
+						entity.setTenDayIncreasePro(Double.parseDouble(value[YYB_FIELDMAP.get("UpRate10DC")]));
+					}
 					entity.setName(value[YYB_FIELDMAP.get("SalesName")]);
 					entity.setId(value[YYB_FIELDMAP.get("SalesCode")]);
 
@@ -121,6 +133,7 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
+				System.out.println(e.toString());
 				e.printStackTrace();
 			}
 		}

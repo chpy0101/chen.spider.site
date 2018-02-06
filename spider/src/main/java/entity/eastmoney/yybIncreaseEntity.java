@@ -111,12 +111,27 @@ public class yybIncreaseEntity implements DeepCopy<yybIncreaseEntity> {
 
 	public double getRate() {
 		if (rate == 0) {
-			if (this.oneDayIncreaseRate >= 10 || this.threeDayBuyTimes < 3) {
+			if (this.oneDayIncreaseRate >= 9 || this.threeDayBuyTimes < 3) {
 				this.rate = -100;
+			} else {
+				//购买推荐度（涨幅*概率/天数）recommend
+				//五天推荐度*0.5-一天推荐度*0.2+三天推荐度*0.3
+				rate = this.getFiveDayRecommedn() * 0.5 - this.getOneDayRecommedn() * 0.2 + this.getThreeDayRecommedn() * 0.3;
 			}
-			rate = this.fiveDayIncreaseRate / 5 * 2 + this.fiveDayIncreasePro * 5 + this.threeDayIncreaseRate / 3 + this.threeDayIncreasePro * 3;
 		}
 		return rate;
+	}
+
+	private double getOneDayRecommedn() {
+		return this.oneDayIncreaseRate * this.oneDayIncreasePro;
+	}
+
+	private double getFiveDayRecommedn() {
+		return this.fiveDayIncreaseRate * this.fiveDayIncreasePro / 5;
+	}
+
+	private double getThreeDayRecommedn() {
+		return this.threeDayIncreaseRate * this.threeDayIncreasePro / 3;
 	}
 
 	public double getOneDayIncreaseRate() {
