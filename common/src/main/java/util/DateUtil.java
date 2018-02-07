@@ -90,4 +90,12 @@ public class DateUtil {
 
 		return calendar.getTime();
 	}
+
+	public static Date addDay(Date origDate, int date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(origDate);
+		calendar.add(Calendar.DATE, date	);
+
+		return calendar.getTime();
+	}
 }

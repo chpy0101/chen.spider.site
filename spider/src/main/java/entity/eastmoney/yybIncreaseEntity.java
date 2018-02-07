@@ -2,13 +2,12 @@ package entity.eastmoney;
 
 import entity.DeepCopy;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class yybIncreaseEntity implements DeepCopy<yybIncreaseEntity> {
 
     public yybIncreaseEntity() {
-        this.buyStock = new ArrayList<>();
+
     }
 
     public yybIncreaseEntity(String name, String id, double oneDayIncreaseRate, double oneDayIncreasePro, int oneDayBuyTimes, double threeDayIncreaseRate, double threeDayIncreasePro, int threeDayBuyTimes, double fiveDayIncreaseRate, double fiveDayIncreasePro,
