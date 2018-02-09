@@ -1,5 +1,9 @@
 package controller;
 
+import filter.baseFilter;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
@@ -8,13 +12,7 @@ import java.util.function.Function;
  */
 public abstract class abstractController<T> {
 
-	private abstractController() {
-	}
-
-	public abstractController(boolean enableLoop) {
-		this._enableLoop = enableLoop;
-	}
-
+	private List<baseFilter> _filters;
 	/**
 	 * 是否启用循环模式
 	 */
@@ -29,8 +27,25 @@ public abstract class abstractController<T> {
 		this._callBackFunction = _callBack;
 	}
 
+	private abstractController() {
+		this._filters = new ArrayList<>();
+	}
+
+	public abstractController(boolean enableLoop) {
+		this();
+		this._enableLoop = enableLoop;
+	}
 
 	public abstract T getData();
+
+	/**
+	 * 添加过滤器
+	 *
+	 * @param filter
+	 */
+	public void addFilter(baseFilter filter) {
+		this._filters.add(filter);
+	}
 
 	/**
 	 * 获取数据并执行回调函数(异步执行getData)
@@ -50,4 +65,18 @@ public abstract class abstractController<T> {
 		return future.get();
 	}
 
+	/**
+	 * 过滤数据
+	 *
+	 * @param data
+	 * @param <T>
+	 * @return
+	 */
+	public <T> T filterData(T data) {
+		if (this._filters.size() > 0)
+			for (baseFilter filter : this._filters) {
+				data = (T) filter.filter(data);
+			}
+		return data;
+	}
 }
