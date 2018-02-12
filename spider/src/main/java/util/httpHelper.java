@@ -33,10 +33,12 @@ public class httpHelper {
 		BufferedReader br = null;
 		String paramStr = "";
 		try {
-			if (params != null)
+			if (params != null) {
 				paramStr = String.join("&", params.entrySet().stream().map(
 						t -> t.getKey() + "=" + getUrlEncoding(t.getValue())).collect(Collectors.toList()));
-			URL uri = new URL(url + "?" + paramStr);
+				url += ("?" + paramStr);
+			}
+			URL uri = new URL(url);
 			con = (HttpURLConnection) uri.openConnection();
 
 			con.setRequestMethod("GET");

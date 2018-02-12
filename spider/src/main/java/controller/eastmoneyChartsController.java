@@ -7,6 +7,7 @@ import entity.eastmoney.yybIncreaseEntity;
 import entity.eastmoney.yybJson;
 import entity.eastmoney.yybStockInfo;
 import util.DateUtil;
+import util.DoubleUtil;
 import util.httpHelper;
 
 import java.text.MessageFormat;
@@ -113,6 +114,9 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 		if (pageMatcher.find()) {
 			pageCount = Integer.parseInt(pageMatcher.group(0));
 		}
+
+		pageCount=1;
+
 		Map<String, String> paramsConfi = new HashMap<>();
 		paramsConfi.put("tkn", "eastmoney");
 		paramsConfi.put("cfg", "yybph");
@@ -123,8 +127,8 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 		paramsConfi.put("sortfield", "AvgRate2DC");
 		paramsConfi.put("sortdirec", "1");
 		paramsConfi.put("pageNum", "");
-		paramsConfi.put("pageSize", "100");
-		for (int i = 1; i < pageCount; i++) {
+		paramsConfi.put("pageSize", "1000");
+		for (int i = 1; i <= pageCount; i++) {
 			paramsConfi.replace("pageNum", Integer.toString(i));
 			String response = httpHelper.get(YYB_URL, paramsConfi);
 			api<List<yybJson>> resJson = JSON.parseObject(response, new TypeReference<api<List<yybJson>>>() {
@@ -203,15 +207,15 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 				for (String valueStr : resJson.getData().get(0).getData()) {
 					String[] value = valueStr.split("\\|");
 					yybStockInfo entity = new yybStockInfo();
-					entity.setBuyNum(Double.parseDouble(value[YYB_FIELDMAP.get("ActBuyNum")]));
-					entity.setBuyPrice(Double.parseDouble(value[YYB_FIELDMAP.get("CPrice")]));
-					entity.setShellNum(Double.parseDouble(value[YYB_FIELDMAP.get("ActSellNum")]));
-					entity.setOneDayRate(Double.parseDouble(value[YYB_FIELDMAP.get("RChange1DC")]));
-					entity.setThreeDayRate(Double.parseDouble(value[YYB_FIELDMAP.get("RChange3DC")]));
-					entity.setFiveDayRate(Double.parseDouble(value[YYB_FIELDMAP.get("RChange5DC")]));
-					entity.setStockCode(value[YYB_FIELDMAP.get("SCode")]);
-					entity.setYybCode(value[YYB_FIELDMAP.get("SalesCode")]);
-					entity.setBuyTime(DateUtil.convertStringToDate(value[YYB_FIELDMAP.get("TDate")]));
+					entity.setBuyNum(DoubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("ActBuyNum")]));
+					entity.setBuyPrice(DoubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("CPrice")]));
+					entity.setShellNum(DoubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("ActSellNum")]));
+					entity.setOneDayRate(DoubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("RChange1DC")]));
+					entity.setThreeDayRate(DoubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("RChange3DC")]));
+					entity.setFiveDayRate(DoubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("RChange5DC")]));
+					entity.setStockCode(value[YYB_STOCK_FIELDMAP.get("SCode")]);
+					entity.setYybCode(value[YYB_STOCK_FIELDMAP.get("SalesCode")]);
+					entity.setBuyTime(DateUtil.convertStringToDate(value[YYB_STOCK_FIELDMAP.get("TDate")], "yyyy-MM-dd"));
 					data.add(entity);
 				}
 			}

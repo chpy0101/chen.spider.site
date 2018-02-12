@@ -49,7 +49,6 @@ public class DateUtil {
 		return format.format(date);
 	}
 
-
 	/**
 	 * 转换为日期类型
 	 *
@@ -57,10 +56,14 @@ public class DateUtil {
 	 * @return
 	 */
 	public static Date convertStringToDate(String dateStr) {
+		return convertStringToDate(dateStr, "yyyy-MM-dd HH:mm:ss");
+	}
 
+
+	public static Date convertStringToDate(String dateStr, String formatStr) {
 		Date date = null;
 		try {
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat format = new SimpleDateFormat(formatStr);
 			date = format.parse(dateStr);
 		} catch (Exception ex) {
 			LogUtil.error("convertStringToDate", ex);
@@ -94,7 +97,7 @@ public class DateUtil {
 	public static Date addDay(Date origDate, int date) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(origDate);
-		calendar.add(Calendar.DATE, date	);
+		calendar.add(Calendar.DATE, date);
 
 		return calendar.getTime();
 	}
