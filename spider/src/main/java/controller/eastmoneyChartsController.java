@@ -15,7 +15,6 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class eastmoneyChartsController extends abstractController<List<yybIncreaseEntity>> {
 
@@ -124,7 +123,7 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 		paramsConfi.put("sortfield", "AvgRate2DC");
 		paramsConfi.put("sortdirec", "1");
 		paramsConfi.put("pageNum", "");
-		paramsConfi.put("pageSize", "1000");
+		paramsConfi.put("pageSize", "200");
 		for (int i = 1; i <= pageCount; i++) {
 			paramsConfi.replace("pageNum", Integer.toString(i));
 			String response = httpHelper.get(YYB_URL, paramsConfi);
@@ -187,7 +186,7 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 	 * @return
 	 */
 	public List<yybStockInfo> getStockInfo(String buyCode, String startTime, String endTime) {
-		ArrayList<yybStockInfo> data = new ArrayList<yybStockInfo>();
+		ArrayList<yybStockInfo> data = new ArrayList<>();
 		try {
 			final String pageSize = "20";
 			String response = httpHelper.get(MessageFormat.format(YYBSTOCK_URL, buyCode, startTime, endTime, pageSize.toString()), null);
