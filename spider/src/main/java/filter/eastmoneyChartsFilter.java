@@ -7,6 +7,7 @@ import util.CollectorsUtil;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 营业部数据筛选器
@@ -30,29 +31,28 @@ public class eastmoneyChartsFilter extends baseFilter<List<yybIncreaseEntity>> {
 			//过滤购买的股票信息
 			else {
 				List<String> removeCodes = new ArrayList<>();//需要移除的
-				List<yybStockInfo> stocks = t.getBuyStock();
-				Map<String, yybStockSellInfo> mapInfo = stocks.stream()
-						.collect(Collectors.groupingBy(yybStockInfo::getStockCode, CollectorsUtil.summingToObject((a, b) -> {
-							if (b == null)
-								b = new HashMap<>();
-							if (!b.containsKey("buy"))
-								b.put("buy", "0");
-							b.replace("buy", b.get("buy") + "-" + Double.toString(a.getBuyNum()));
-							if (!b.containsKey("shell"))
-								b.put("shell", "0");
-							b.replace("shell", b.get("shell") + "-" + Double.toString(a.getShellNum()));
-						}, a -> {
-							yybStockSellInfo shell = new yybStockSellInfo();
-							String[] buyAtr = a.get("buy").split("-");
-							String[] shellAtr = a.get("shell").split("-");
-							for (int i = 0; i < buyAtr.length; i++) {
-								if (!buyAtr[i].isEmpty())
-									shell.addBuy(Double.parseDouble(buyAtr[i]));
-								if (!shellAtr[i].isEmpty())
-									shell.addSell(Double.parseDouble(shellAtr[i]));
-							}
-							return shell;
-						})));
+				List<yybStockInfo> stocks = t.getBuyStock().stream().filter(s -> !s.getStockCode().startsWith("3")).collect(Collectors.toList());
+				Map<String, yybStockSellInfo> mapInfo = stocks.stream().collect(Collectors.groupingBy(yybStockInfo::getStockCode, CollectorsUtil.summingToObject((a, b) -> {
+					if (b == null)
+						b = new HashMap<>();
+					if (!b.containsKey("buy"))
+						b.put("buy", "0");
+					b.replace("buy", b.get("buy") + "-" + Double.toString(a.getBuyNum()));
+					if (!b.containsKey("shell"))
+						b.put("shell", "0");
+					b.replace("shell", b.get("shell") + "-" + Double.toString(a.getShellNum()));
+				}, a -> {
+					yybStockSellInfo shell = new yybStockSellInfo();
+					String[] buyAtr = a.get("buy").split("-");
+					String[] shellAtr = a.get("shell").split("-");
+					for (int i = 0; i < buyAtr.length; i++) {
+						if (!buyAtr[i].isEmpty())
+							shell.addBuy(Double.parseDouble(buyAtr[i]));
+						if (!shellAtr[i].isEmpty())
+							shell.addSell(Double.parseDouble(shellAtr[i]));
+					}
+					return shell;
+				})));
 				//股票卖出额达到买入额一半
 				for (Map.Entry<String, yybStockSellInfo> item : mapInfo.entrySet()) {
 					yybStockSellInfo stock = item.getValue();
@@ -61,9 +61,13 @@ public class eastmoneyChartsFilter extends baseFilter<List<yybIncreaseEntity>> {
 				}
 				if (stocks.size() == removeCodes.size()) {
 					result = false;
-				}
-				else{
-
+				} else {
+					Iterator<yybStockInfo> it = t.getBuyStock().iterator();
+					while (it.hasNext()) {
+						yybStockInfo item = it.next();
+						if (removeCodes.indexOf(item.getStockCode()) >= 0)
+							it.remove();
+					}
 				}
 			}
 			return result;

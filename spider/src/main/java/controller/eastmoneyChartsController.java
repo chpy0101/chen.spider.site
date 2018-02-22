@@ -72,17 +72,14 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 		Date endTime = DateUtil.nowDate();
 		List<yybIncreaseEntity> list = getyybInfo(startTime, endTime);
 		List<yybIncreaseEntity> data = list.stream().filter(t -> t.getRate() > 0)
-				.sorted((x1, x2) -> Double.compare(x1.getRate(), x2.getRate()))
+				.sorted(Comparator.comparingDouble(yybIncreaseEntity::getRate))
 				.collect(Collectors.toList());
 		//删除一天前的股票和创业板
 		for (yybIncreaseEntity item : data) {
 			List<yybStockInfo> stockInfo = getStockInfo(item.getId(), DateUtil.formatDate(startTime, "yyyy-MM-dd"), DateUtil.formatDate(endTime, "yyyy-MM-dd"));
-			Stream<yybStockInfo> steam = stockInfo.stream()
-					.filter(t -> t.getBuyTime().after(DateUtil.addMonth(endTime, -3))
-							&& !t.getStockCode().startsWith("3"));
-			item.setBuyStock(steam.collect(Collectors.toList()));
+			item.setBuyStock(stockInfo);
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -115,7 +112,7 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 			pageCount = Integer.parseInt(pageMatcher.group(0));
 		}
 
-		pageCount=1;
+		pageCount = 1;
 
 		Map<String, String> paramsConfi = new HashMap<>();
 		paramsConfi.put("tkn", "eastmoney");
@@ -172,7 +169,7 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 				}
 			}
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				System.out.println(e.toString());
 				e.printStackTrace();
