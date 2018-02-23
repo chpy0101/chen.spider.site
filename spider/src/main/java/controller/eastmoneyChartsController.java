@@ -69,7 +69,7 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 		//获取营业部信息。并筛选
 		Date startTime = DateUtil.addMonth(DateUtil.nowDate(), -3);
 		Date endTime = DateUtil.nowDate();
-		List<yybIncreaseEntity> list = getyybInfo(startTime, endTime);
+		List<yybIncreaseEntity> list = getyybInfo(startTime, endTime, 200);
 		List<yybIncreaseEntity> data = list.stream().filter(t -> t.getRate() > 0)
 				.sorted(Comparator.comparingDouble(yybIncreaseEntity::getRate))
 				.collect(Collectors.toList());
@@ -88,19 +88,23 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 		return data;
 	}
 
+	public List<yybIncreaseEntity> getyybInfo(Date startTime, Date endTime, Integer pageSize) {
+		return getyybInfo(startTime, endTime, pageSize, 50);
+	}
+
 	/**
 	 * 获取营业部列表
 	 *
 	 * @param startTime
 	 * @param endTime
+	 * @param pageSize
+	 * @param pageCount
 	 * @return
 	 */
-	public List<yybIncreaseEntity> getyybInfo(Date startTime, Date endTime) {
+	public List<yybIncreaseEntity> getyybInfo(Date startTime, Date endTime, Integer pageSize, Integer pageCount) {
 
 		List<yybIncreaseEntity> yybInfo = new ArrayList<>();
 
-		//获取总页数
-		Integer pageCount = 50;
 		String startStr = DateUtil.formatDate(startTime, DATE_FORMAT);
 		String endStr = DateUtil.formatDate(endTime, DATE_FORMAT);
 		String startResponse = httpHelper.get(MessageFormat.format(START_URL, startTime, endTime), null);
@@ -110,8 +114,6 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 		if (pageMatcher.find()) {
 			pageCount = Integer.parseInt(pageMatcher.group(0));
 		}
-
-		pageCount = 1;
 
 		Map<String, String> paramsConfi = new HashMap<>();
 		paramsConfi.put("tkn", "eastmoney");
@@ -123,7 +125,7 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 		paramsConfi.put("sortfield", "AvgRate2DC");
 		paramsConfi.put("sortdirec", "1");
 		paramsConfi.put("pageNum", "");
-		paramsConfi.put("pageSize", "200");
+		paramsConfi.put("pageSize", pageSize.toString());
 		for (int i = 1; i <= pageCount; i++) {
 			paramsConfi.replace("pageNum", Integer.toString(i));
 			String response = httpHelper.get(YYB_URL, paramsConfi);

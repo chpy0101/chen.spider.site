@@ -5,6 +5,7 @@ import org.springframework.util.StringUtils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class DateUtil {
 	/**
@@ -100,5 +101,20 @@ public class DateUtil {
 		calendar.add(Calendar.DATE, date);
 
 		return calendar.getTime();
+	}
+
+	/**
+	 * 获取日期
+	 *
+	 * @param time
+	 * @return
+	 */
+	public static Date getDayFormat(Date time) {
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(time);
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH);
+		int day = calendar.get(Calendar.DATE);
+		return new Date(year, month, day);
 	}
 }
