@@ -59,11 +59,11 @@ public class eastmoneyChartsFilter extends baseFilter<List<yybIncreaseEntity>> {
 				if (stock.getSell() * 2 > stock.getBuy())
 					removeCodes.add(item.getKey());
 			}
-			//获取上一个工作日
-			Date lastWorkDay =
-			//移除列表中的股票
+			//界限日期
+			Date lastWorkDay = DateUtil.getDayFormat(DateUtil.addDay(DateUtil.nowDate(), -3));
+			//移除列表中的股票和界限日期前 的股票
 			List<yybStockInfo> finalStocks = stocks.stream()
-					.filter(s -> removeCodes.indexOf(s.getStockCode()) < 0 && s.getBuyTime().getTime() <)
+					.filter(s -> removeCodes.indexOf(s.getStockCode()) < 0 && s.getBuyTime().getTime() < lastWorkDay.getTime())
 					.collect(Collectors.toList());
 			if (finalStocks == null || finalStocks.size() <= 0)
 				result = false;

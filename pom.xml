@@ -12,6 +12,8 @@
         <module>api</module>
         <module>spider</module>
         <module>common</module>
+        <module>dao</module>
+        <module>pojo</module>
     </modules>
 
 
