@@ -1,4 +1,4 @@
-package eastmoney;
+package eastmoney.pojo;
 
 import java.util.Date;
 

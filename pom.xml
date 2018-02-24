@@ -13,7 +13,7 @@
         <module>spider</module>
         <module>common</module>
         <module>dao</module>
-        <module>pojo</module>
+        <module>eastmoney.pojo</module>
     </modules>
 
 
