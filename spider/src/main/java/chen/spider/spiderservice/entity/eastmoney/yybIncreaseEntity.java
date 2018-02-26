@@ -124,22 +124,23 @@ public class yybIncreaseEntity implements DeepCopy<yybIncreaseEntity> {
                 this.rate = -100;
             } else {
                 //购买推荐度（涨幅*概率/天数）recommend
-                //五天推荐度*0.5-一天推荐度*0.2+三天推荐度*0.3
-                rate = this.getFiveDayRecommedn() - this.getOneDayRecommedn() * 0.2 + this.getThreeDayRecommedn() * 0.3;
+                //三天推荐度-一天推荐度 加上五天减三天推荐度
+                rate = this.getThreeDayRecommedRn() - this.getOneDayRecommedRn() +
+                        (this.getFiveDayRecommedRn() - this.getThreeDayRecommedRn()) * 0.5;
             }
         }
         return rate;
     }
 
-    private double getOneDayRecommedn() {
+    private double getOneDayRecommedRn() {
         return this.oneDayIncreaseRate * this.oneDayIncreasePro;
     }
 
-    private double getFiveDayRecommedn() {
+    private double getFiveDayRecommedRn() {
         return this.fiveDayIncreaseRate * this.fiveDayIncreasePro / 5;
     }
 
-    private double getThreeDayRecommedn() {
+    private double getThreeDayRecommedRn() {
         return this.threeDayIncreaseRate * this.threeDayIncreasePro / 3;
     }
 
