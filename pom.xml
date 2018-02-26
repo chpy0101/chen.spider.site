@@ -43,7 +43,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>controller.Application</mainClass>
+                    <mainClass>chen.spider.spiderservice.controller.Application</mainClass>
                     <fork>true</fork>
                 </configuration>
                 <executions>

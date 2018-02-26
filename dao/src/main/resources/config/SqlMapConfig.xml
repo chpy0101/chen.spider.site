@@ -17,6 +17,6 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="sqlmap/yybBuyStock.xml"></mapper>
+        <chen.spider.spiderservice.mapper resource="sqlmap/yybBuyStock.xml"></chen.spider.spiderservice.mapper>
     </mappers>
 </configuration>
