@@ -15,3 +15,7 @@ common/target/
 spider/src/test/
 spider/target/
 dao/target
+pojo/src/test/
+pojo/target/
+service/src/test/
+service/target/

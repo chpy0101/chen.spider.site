@@ -1,6 +1,6 @@
-import controller.eastmoneyChartsController;
-import entity.eastmoney.yybIncreaseEntity;
-import filter.eastmoneyChartsFilter;
+import chen.spider.spiderservice.controller.eastmoneyChartsController;
+import chen.spider.spiderservice.entity.eastmoney.yybIncreaseEntity;
+import chen.spider.spiderservice.filter.eastmoneyChartsFilter;
 
 import java.util.List;
 
