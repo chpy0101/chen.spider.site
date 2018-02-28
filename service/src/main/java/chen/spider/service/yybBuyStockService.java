@@ -1,14 +1,15 @@
 package chen.spider.service;
 
 import chen.site.dao.idao.yybBuyStockRepository;
+import chen.spider.pojo.yybBuyStock;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class yybBuyStock {
+public class yybBuyStockService {
 
 	@Autowired
 	yybBuyStockRepository yybBuyStockRepository;
 
-	public void run() {
-
+	public yybBuyStock save(yybBuyStock entity) {
+		return yybBuyStockRepository.save(entity);
 	}
 }
