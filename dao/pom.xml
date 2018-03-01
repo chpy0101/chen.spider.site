@@ -13,32 +13,9 @@
 
 <dependencies>
     <dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-core</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-core</artifactId>
-    </dependency>
-    <dependency>
         <groupId>boot</groupId>
         <artifactId>pojo</artifactId>
         <version>1.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-        <groupId>org.springframework.data</groupId>
-        <artifactId>spring-data-commons</artifactId>
-        <version>RELEASE</version>
-    </dependency>
-    <dependency>
-        <groupId>org.hibernate.javax.persistence</groupId>
-        <artifactId>hibernate-jpa-2.1-api</artifactId>
-        <version>RELEASE</version>
-    </dependency>
-    <dependency>
-        <groupId>org.springframework.data</groupId>
-        <artifactId>spring-data-jpa</artifactId>
-        <version>RELEASE</version>
     </dependency>
 </dependencies>
 </project>

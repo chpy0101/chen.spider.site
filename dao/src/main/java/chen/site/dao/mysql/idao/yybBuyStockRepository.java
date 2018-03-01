@@ -1,4 +1,4 @@
-package chen.site.dao.idao;
+package chen.site.dao.mysql.idao;
 
 import chen.spider.pojo.yybBuyStock;
 import org.springframework.beans.factory.annotation.Qualifier;
