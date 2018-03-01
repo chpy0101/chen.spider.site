@@ -2,6 +2,7 @@ package chen.spider.spiderservice.controller;
 
 import chen.spider.pojo.yybBuyStock;
 import chen.spider.service.yybBuyStockService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -18,10 +19,12 @@ import java.util.Date;
 @EntityScan("chen.spider.pojo")
 public class Application {
 
+	@Autowired
+	public static yybBuyStockService yybBuyStockService;
+
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(Application.class, args);
 
-		yybBuyStockService service = new yybBuyStockService();
 		yybBuyStock entity = new yybBuyStock();
 		entity.setBuyCode("00001");
 		entity.setBuyCount(1000);
@@ -30,6 +33,6 @@ public class Application {
 		entity.setRecommedScore(0.5);
 		entity.setStockName("testStock");
 		entity.setStockCode("s00001");
-		yybBuyStock result = service.save(entity);
+		yybBuyStock result = yybBuyStockService.save(entity);
 	}
 }
