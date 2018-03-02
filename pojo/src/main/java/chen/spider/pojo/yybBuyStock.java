@@ -4,11 +4,10 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name="yybBuyStock")
+@Table(name = "yybbuystock")
 public class yybBuyStock {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+
 	private Long id;
 	private String buyCode;
 	private String buyName;
@@ -18,6 +17,17 @@ public class yybBuyStock {
 	private Double recommedScore;
 	private Integer buyCount;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@Column(name = "buyCode")
 	public String getBuyCode() {
 		return buyCode;
 	}
@@ -26,6 +36,7 @@ public class yybBuyStock {
 		this.buyCode = buyCode;
 	}
 
+	@Column(name = "buyName")
 	public String getBuyName() {
 		return buyName;
 	}
@@ -34,6 +45,7 @@ public class yybBuyStock {
 		this.buyName = buyName;
 	}
 
+	@Column(name = "stockCode")
 	public String getStockCode() {
 		return stockCode;
 	}
@@ -42,6 +54,7 @@ public class yybBuyStock {
 		this.stockCode = stockCode;
 	}
 
+	@Column(name = "stockName")
 	public String getStockName() {
 		return stockName;
 	}
@@ -50,6 +63,7 @@ public class yybBuyStock {
 		this.stockName = stockName;
 	}
 
+	@Column(name = "buyDate")
 	public Date getBuyDate() {
 		return buyDate;
 	}
@@ -58,6 +72,7 @@ public class yybBuyStock {
 		this.buyDate = buyDate;
 	}
 
+	@Column(name = "recommedScore")
 	public Double getRecommedScore() {
 		return recommedScore;
 	}
@@ -66,6 +81,7 @@ public class yybBuyStock {
 		this.recommedScore = recommedScore;
 	}
 
+	@Column(name = "buyCount")
 	public Integer getBuyCount() {
 		return buyCount;
 	}
