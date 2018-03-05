@@ -1,18 +1,25 @@
 package chen.spider.service;
 
 import chen.site.dao.mysql.idao.yybBuyStockRepository;
+import chen.spider.common.ListUtil;
 import chen.spider.pojo.yybBuyStock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class yybBuyStockService {
 
-	@Autowired
-	yybBuyStockRepository yybBuyStockRepository;
+    @Autowired
+    yybBuyStockRepository yybBuyStockRepository;
 
-	public yybBuyStock save(yybBuyStock entity) {
-		return yybBuyStockRepository.save(entity);
-	}
+    public yybBuyStock save(yybBuyStock entity) {
+        return yybBuyStockRepository.save(entity);
+    }
+
+    public List<yybBuyStock> save(List<yybBuyStock> entitys) {
+        return ListUtil.toList(yybBuyStockRepository.save(entitys));
+    }
+
 }

@@ -4,6 +4,7 @@ import chen.spider.pojo.yybBuyStock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import chen.spider.service.yybBuyStockService;
 
 import java.util.Date;
 
@@ -15,7 +16,7 @@ import java.util.Date;
 public class testController {
 
     @Autowired
-    chen.spider.service.yybBuyStockService yybBuyStockService;
+    yybBuyStockService yybBuyStockService;
 
     @RequestMapping("/")
     public String test() {
