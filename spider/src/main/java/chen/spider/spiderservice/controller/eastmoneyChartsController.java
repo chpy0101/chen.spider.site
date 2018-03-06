@@ -88,7 +88,7 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 		return data;
 	}
 
-	public List<yybIncreaseEntity> getyybInfo(Date startTime, Date endTime, Integer pageSize) {
+	private List<yybIncreaseEntity> getyybInfo(Date startTime, Date endTime, Integer pageSize) {
 		return getyybInfo(startTime, endTime, pageSize, 50);
 	}
 
@@ -101,7 +101,7 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 	 * @param pageCount
 	 * @return
 	 */
-	public List<yybIncreaseEntity> getyybInfo(Date startTime, Date endTime, Integer pageSize, Integer pageCount) {
+	private List<yybIncreaseEntity> getyybInfo(Date startTime, Date endTime, Integer pageSize, Integer pageCount) {
 
 		List<yybIncreaseEntity> yybInfo = new ArrayList<>();
 
@@ -187,7 +187,7 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 	 * @param endTime
 	 * @return
 	 */
-	public List<yybStockInfo> getStockInfo(String buyCode, String startTime, String endTime) {
+	private List<yybStockInfo> getStockInfo(String buyCode, String startTime, String endTime)   {
 		ArrayList<yybStockInfo> data = new ArrayList<>();
 		try {
 			final String pageSize = "20";
