@@ -56,6 +56,7 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 			put("SCode", 0);
 			put("SalesCode", 0);
 			put("TDate", 0);
+			put("SName", 0);
 		}
 	};
 
@@ -187,10 +188,10 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 	 * @param endTime
 	 * @return
 	 */
-	private List<yybStockInfo> getStockInfo(String buyCode, String startTime, String endTime)   {
+	private List<yybStockInfo> getStockInfo(String buyCode, String startTime, String endTime) {
 		ArrayList<yybStockInfo> data = new ArrayList<>();
 		try {
-			final String pageSize = "20";
+			final String pageSize = "50";
 			String response = httpHelper.get(MessageFormat.format(YYBSTOCK_URL, buyCode, startTime, endTime, pageSize.toString()), null);
 			api<List<yybJson>> resJson = JSON.parseObject(response, new TypeReference<api<List<yybJson>>>() {
 			});
@@ -213,6 +214,7 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 					entity.setFiveDayRate(DoubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("RChange5DC")]));
 					entity.setStockCode(value[YYB_STOCK_FIELDMAP.get("SCode")]);
 					entity.setYybCode(value[YYB_STOCK_FIELDMAP.get("SalesCode")]);
+					entity.setStockName(value[YYB_STOCK_FIELDMAP.get("SName")]);
 					entity.setBuyTime(DateUtil.convertStringToDate(value[YYB_STOCK_FIELDMAP.get("TDate")], "yyyy-MM-dd"));
 					data.add(entity);
 				}

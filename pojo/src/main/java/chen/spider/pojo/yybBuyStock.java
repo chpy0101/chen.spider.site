@@ -89,4 +89,21 @@ public class yybBuyStock {
 	public void setBuyCount(Integer buyCount) {
 		this.buyCount = buyCount;
 	}
+
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = result * 31 + (this.getBuyCode() == null ? 0 : this.getBuyCode().hashCode());
+		result = result * 31 + (this.getStockCode() == null ? 0 : this.getStockCode().hashCode());
+		result = result * 31 + (this.getBuyDate() == null ? 0 : this.getBuyDate().hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof yybBuyStock))
+			return false;
+		yybBuyStock stock = (yybBuyStock) obj;
+		return stock.getBuyCode() == this.getBuyCode() && stock.getStockCode() == this.getStockCode() && stock.getBuyDate().equals(this.getBuyDate());
+	}
 }

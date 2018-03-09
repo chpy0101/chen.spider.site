@@ -13,6 +13,15 @@ public class yybStockInfo {
     private String stockCode;
     private String yybCode;
     private Date buyTime;
+    private String stockName;
+
+    public String getStockName() {
+        return stockName;
+    }
+
+    public void setStockName(String stockName) {
+        this.stockName = stockName;
+    }
 
     public Date getBuyTime() {
         return buyTime;

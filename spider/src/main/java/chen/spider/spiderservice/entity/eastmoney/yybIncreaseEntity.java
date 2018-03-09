@@ -120,7 +120,7 @@ public class yybIncreaseEntity implements DeepCopy<yybIncreaseEntity> {
 
 	public double getRate() {
 		if (rate == 0) {
-			if (this.oneDayIncreaseRate >= 9 && (this.threeDayIncreaseRate > 27 || this.threeDayIncreaseRate < 9)) {
+			if (this.oneDayIncreaseRate >= 9 || this.threeDayIncreaseRate / 3 >= 9 || this.fiveDayIncreaseRate / 5 >= 9) {
 				this.rate = -100;
 			} else {
 				//购买推荐度（涨幅*概率/天数）recommend
@@ -130,6 +130,23 @@ public class yybIncreaseEntity implements DeepCopy<yybIncreaseEntity> {
 			}
 		}
 		return rate;
+	}
+
+	public Integer getMaxRateDay() {
+		Integer day = 1;
+		double rn = this.getOneDayRecommedRn();
+		if (this.getThreeDayRecommedRn() >= rn) {
+			day = 2;
+			rn = this.getThreeDayRecommedRn();
+		}
+		if (this.getFiveDayRecommedRn() >= rn) {
+			day = 4;
+			rn = this.getFiveDayRecommedRn();
+		}
+		if (this.getTenDayRecommedRn() >= rn) {
+			day = 9;
+		}
+		return day;
 	}
 
 	private double getOneDayRecommedRn() {

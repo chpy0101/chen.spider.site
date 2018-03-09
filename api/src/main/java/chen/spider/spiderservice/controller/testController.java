@@ -2,13 +2,11 @@ package chen.spider.spiderservice.controller;
 
 import chen.spider.pojo.yybBuyStock;
 import chen.spider.spiderservice.entity.eastmoney.yybIncreaseEntity;
-import chen.spider.spiderservice.entity.eastmoney.yybStockInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import chen.spider.service.yybBuyStockService;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,7 +31,7 @@ public class testController {
 			Stream<yybBuyStock> stock = t.getBuyStock().stream().map(s -> {
 				yybBuyStock temp = new yybBuyStock();
 				temp.setStockCode(s.getStockCode());
-				temp.setStockName("");
+				temp.setStockName(s.getStockName());
 				temp.setRecommedScore(0d);
 				temp.setBuyName("");
 				temp.setBuyDate(s.getBuyTime());
@@ -42,7 +40,7 @@ public class testController {
 				return temp;
 			});
 			return stock;
-		}).collect(Collectors.toList());
+		}).distinct().collect(Collectors.toList());
 		if (stockInfos == null)
 			return "未获取到有效的股票信息";
 		List<yybBuyStock> result = yybBuyStockService.save(stockInfos);

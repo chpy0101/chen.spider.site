@@ -4,6 +4,7 @@ public class yybStockSellInfo {
     public String code;
     public double sell;
     public double buy;
+    public double price;
 
     public String getCode() {
         return code;
@@ -37,4 +38,11 @@ public class yybStockSellInfo {
         this.buy += value;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 }
