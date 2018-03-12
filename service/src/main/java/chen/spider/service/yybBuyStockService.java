@@ -14,6 +14,8 @@ public class yybBuyStockService {
     @Autowired
     yybBuyStockRepository yybBuyStockRepository;
 
+    private final String stockHistoryPriceUrl = "http://pdfm2.eastmoney.com/EM_UBG_PDTI_Fast/api/js?id=0023692&TYPE=k&style=top&num=10";
+
     public yybBuyStock save(yybBuyStock entity) {
         return yybBuyStockRepository.save(entity);
     }
@@ -21,5 +23,6 @@ public class yybBuyStockService {
     public List<yybBuyStock> save(List<yybBuyStock> entitys) {
         return ListUtil.toList(yybBuyStockRepository.save(entitys));
     }
+
 
 }
