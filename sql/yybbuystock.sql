@@ -10,3 +10,6 @@ CREATE TABLE `yybbuystock` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+alter table spider.yybbuystock modify column id bigint auto_increment;
+alter TABLE spider.yybbuystock AUTO_INCREMENT=100000;

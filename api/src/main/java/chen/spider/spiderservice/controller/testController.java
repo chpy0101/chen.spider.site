@@ -2,6 +2,7 @@ package chen.spider.spiderservice.controller;
 
 import chen.spider.pojo.yybBuyStock;
 import chen.spider.spiderservice.entity.eastmoney.yybIncreaseEntity;
+import chen.spider.spiderservice.filter.eastmoneyChartsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,7 @@ public class testController {
 	public String test() {
 
 		eastmoneyChartsController spiderController = new eastmoneyChartsController(false);
+		spiderController.addFilter(new eastmoneyChartsFilter());
 		List<yybIncreaseEntity> yybEntity = spiderController.getData();
 
 		List<yybBuyStock> stockInfos = yybEntity.stream().flatMap(t -> {
