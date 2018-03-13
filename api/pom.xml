@@ -65,11 +65,11 @@
                     <fork>true</fork>
                 </configuration>
                 <!--<dependencies>-->
-                    <!--<dependency>-->
-                        <!--<groupId>org.springframework</groupId>-->
-                        <!--<artifactId>springloaded</artifactId>-->
-                        <!--<version>1.2.6.RELEASE</version>-->
-                    <!--</dependency>-->
+                <!--<dependency>-->
+                <!--<groupId>org.springframework</groupId>-->
+                <!--<artifactId>springloaded</artifactId>-->
+                <!--<version>1.2.6.RELEASE</version>-->
+                <!--</dependency>-->
                 <!--</dependencies>-->
             </plugin>
         </plugins>

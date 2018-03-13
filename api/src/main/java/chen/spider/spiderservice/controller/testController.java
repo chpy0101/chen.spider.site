@@ -1,6 +1,7 @@
 package chen.spider.spiderservice.controller;
 
 import chen.spider.pojo.yybBuyStock;
+import chen.spider.spiderservice.controller.webConf.ThreadConfigSetting;
 import chen.spider.spiderservice.entity.eastmoney.yybIncreaseEntity;
 import chen.spider.spiderservice.filter.eastmoneyChartsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,10 @@ public class testController {
 
 	@Autowired
 	yybBuyStockService yybBuyStockService;
+
+
+	@Autowired
+	ThreadConfigSetting threadConfigSetting;
 
 	@RequestMapping("/")
 	public String test() {
