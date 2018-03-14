@@ -1,6 +1,8 @@
 
 public class testMain {
-	public boolean save() {
-		return false;
+	public static void main(String[] args) {
+
 	}
+
 }
+

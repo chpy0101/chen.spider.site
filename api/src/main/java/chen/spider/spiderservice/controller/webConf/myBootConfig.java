@@ -28,8 +28,7 @@ public class myBootConfig extends WebMvcConfigurerAdapter {
 		executor.setKeepAliveSeconds(threadConfigSetting.getAlives());
 		executor.setMaxPoolSize(threadConfigSetting.getMaxpool());
 		executor.setQueueCapacity(threadConfigSetting.getQueuesize());
-
-		return null;
+		return executor;
 	}
 
 
