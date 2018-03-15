@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
  *
  * @param <T>
  */
-public class ParallelHandler<T> {
+public class ThreadHandler<T> {
 
-	public ParallelHandler() {
+	public ThreadHandler() {
 		taskList = new ArrayList<>();
 		results = new ArrayList<>();
 	}
@@ -32,7 +32,7 @@ public class ParallelHandler<T> {
 		return this.taskList.add(task);
 	}
 
-	public boolean addResult(Future<T> result) {
+	protected boolean addResult(Future<T> result) {
 		return this.results.add(result);
 	}
 

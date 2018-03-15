@@ -1,5 +1,7 @@
 package chen.spider.spiderservice.controller;
 
+import chen.spider.common.thread.ThreadHandler;
+import chen.spider.common.thread.ThreadManager;
 import chen.spider.pojo.yybBuyStock;
 import chen.spider.spiderservice.controller.webConf.ThreadConfigSetting;
 import chen.spider.spiderservice.entity.eastmoney.yybIncreaseEntity;
@@ -52,5 +54,16 @@ public class testController {
 			return "未获取到有效的股票信息";
 		List<yybBuyStock> result = yybBuyStockService.save(stockInfos);
 		return "OK";
+	}
+
+	@RequestMapping("/trend")
+	public String getStockTrend() {
+		ThreadHandler<String> threadHandler = new ThreadHandler<>();
+		threadHandler.addTask(() -> {
+			String txt = "test";
+			return txt;
+		});
+		ThreadManager.beginWork(threadHandler);
+		return "";
 	}
 }

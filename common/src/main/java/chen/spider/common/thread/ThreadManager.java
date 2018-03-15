@@ -1,24 +1,14 @@
 package chen.spider.common.thread;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import chen.spider.common.LogUtil;
+import org.springframework.core.task.TaskRejectedException;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.stereotype.Component;
 
-@Component
 public class ThreadManager {
-	@Autowired
-	private ThreadPoolTaskExecutor executor;
+	//线程池
+	private static ThreadPoolTaskExecutor executor;
 
-	/**
-	 * 执行多线程任务
-	 *
-	 * @param handler 任务对象
-	 * @param <T>
-	 */
-	public <T> void beginWork(ParallelHandler<T> handler) {
-		if (handler == null || handler.getTaskList().size() <= 0) {
-			return;
-		}
+	protected static ThreadPoolTaskExecutor getExecutor() {
 		//线程池
 		if (executor == null) {
 			executor = new ThreadPoolTaskExecutor();
@@ -27,6 +17,35 @@ public class ThreadManager {
 			executor.setCorePoolSize(10);
 			executor.setKeepAliveSeconds(300);
 		}
-		handler.getTaskList().forEach(t -> handler.addResult(executor.submit(t)));
+		return executor;
+	}
+
+	public static void init(int corePoolSize, int maxPoolSize, int queueSize, int aliveSec) {
+		if (executor == null)
+			executor = new ThreadPoolTaskExecutor();
+		executor.setQueueCapacity(queueSize);
+		executor.setMaxPoolSize(maxPoolSize);
+		executor.setCorePoolSize(corePoolSize);
+		executor.setKeepAliveSeconds(aliveSec);
+	}
+
+	/**
+	 * 执行多线程任务
+	 *
+	 * @param handler 任务对象
+	 * @param <T>
+	 */
+	public static <T> void beginWork(ThreadHandler<T> handler) {
+		if (handler == null || handler.getTaskList().size() <= 0) {
+			return;
+		}
+
+		handler.getTaskList().forEach(t -> {
+			try {
+				handler.addResult(getExecutor().submit(t));
+			} catch (TaskRejectedException ex) {
+				LogUtil.error("多线程：" + t.toString(), ex);
+			}
+		});
 	}
 }

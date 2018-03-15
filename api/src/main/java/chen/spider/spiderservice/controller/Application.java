@@ -1,5 +1,6 @@
 package chen.spider.spiderservice.controller;
 
+import chen.spider.common.thread.ThreadManager;
 import chen.spider.service.yybBuyStockService;
 import chen.spider.spiderservice.controller.webConf.ThreadConfigSetting;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class Application {
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(Application.class, args);
-
+		//初始化线程池
+		ThreadConfigSetting threadConf = new ThreadConfigSetting();
+		ThreadManager.init(threadConf.getCorepool(), threadConf.getMaxpool(), threadConf.getQueuesize(), threadConf.getAlives());
 	}
 }
