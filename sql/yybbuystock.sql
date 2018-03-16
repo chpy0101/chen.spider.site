@@ -1,4 +1,4 @@
-CREATE TABLE `yybbuystock` (
+CREATE TABLE `yybBuyStock` (
   `id` bigint(200) NOT NULL,
   `buyCode` varchar(45) NOT NULL COMMENT '营业部代码',
   `buyName` varchar(45) DEFAULT NULL,
@@ -13,5 +13,5 @@ CREATE TABLE `yybbuystock` (
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-alter table spider.yybbuystock modify column id bigint auto_increment;
-alter TABLE spider.yybbuystock AUTO_INCREMENT=100000;
+alter table spider.yybBuyStock modify column id bigint auto_increment;
+alter TABLE spider.yybBuyStock AUTO_INCREMENT=100000;
