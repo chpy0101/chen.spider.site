@@ -8,6 +8,7 @@ CREATE TABLE `yybbuystock` (
   `recommedScore` double NOT NULL COMMENT '推荐分',
   `buyCount` int(11) NOT NULL COMMENT '购买股数',
   `recommendDay` datetime NOT NULL,
+  `holdDay` int(11) NOT NULL COMMENT '推荐持有天数',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

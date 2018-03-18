@@ -13,30 +13,30 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableConfigurationProperties(ThreadConfigSetting.class)
 public class myBootConfig extends WebMvcConfigurerAdapter {
 
-	@Autowired
-	ThreadConfigSetting threadConfigSetting;
+    @Autowired
+     ThreadConfigSetting threadConfigSetting;
 
-	/**
-	 * 线程池配置
-	 *
-	 * @return
-	 */
-	@Bean(name = "executor")
-	public ThreadPoolTaskExecutor getExecutor() {
-		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(threadConfigSetting.getCorepool());
-		executor.setKeepAliveSeconds(threadConfigSetting.getAlives());
-		executor.setMaxPoolSize(threadConfigSetting.getMaxpool());
-		executor.setQueueCapacity(threadConfigSetting.getQueuesize());
-		return executor;
-	}
+    /**
+     * 线程池配置
+     *
+     * @return
+     */
+    @Bean(name = "executor")
+    public ThreadPoolTaskExecutor getExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(threadConfigSetting.getCorepool());
+        executor.setKeepAliveSeconds(threadConfigSetting.getAlives());
+        executor.setMaxPoolSize(threadConfigSetting.getMaxpool());
+        executor.setQueueCapacity(threadConfigSetting.getQueuesize());
+        return executor;
+    }
 
 
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		System.out.println("test:::::::::::::sss:::::::::::::::::::::::::::::::::::::11111:::::::::::::::");
-		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-		super.addResourceHandlers(registry);
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        System.out.println("test:::::::::::::sss:::::::::::::::::::::::::::::::::::::11111:::::::::::::::");
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        super.addResourceHandlers(registry);
 
-	}
+    }
 }

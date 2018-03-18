@@ -20,7 +20,7 @@ public class ThreadManager {
 		return executor;
 	}
 
-	public static void init(int corePoolSize, int maxPoolSize, int queueSize, int aliveSec) {
+		public static void init(int corePoolSize, int maxPoolSize, int queueSize, int aliveSec) {
 		if (executor == null)
 			executor = new ThreadPoolTaskExecutor();
 		executor.setQueueCapacity(queueSize);
