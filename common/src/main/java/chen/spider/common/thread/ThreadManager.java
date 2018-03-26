@@ -39,7 +39,6 @@ public class ThreadManager {
 		if (handler == null || handler.getTaskList().size() <= 0) {
 			return;
 		}
-
 		handler.getTaskList().forEach(t -> {
 			try {
 				handler.addResult(getExecutor().submit(t));
