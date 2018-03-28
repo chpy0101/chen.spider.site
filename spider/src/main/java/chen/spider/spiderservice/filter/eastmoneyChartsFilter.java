@@ -3,7 +3,7 @@ package chen.spider.spiderservice.filter;
 import chen.spider.spiderservice.entity.eastmoney.yybIncreaseEntity;
 import chen.spider.spiderservice.entity.eastmoney.yybStockInfo;
 import chen.spider.spiderservice.entity.eastmoney.yybStockSellInfo;
-import chen.spider.spiderservice.util.CollectorsUtil;
+import chen.spider.spiderservice.util.collectorsUtil;
 import chen.spider.common.DateUtil;
 
 import java.util.*;
@@ -34,7 +34,7 @@ public class eastmoneyChartsFilter extends baseFilter<List<yybIncreaseEntity>> {
 			List<yybStockInfo> stocks = t.getBuyStock().stream().filter(s -> {
 				return !s.getStockCode().startsWith("3") && DateUtil.addDay(s.getBuyTime(), rateMaxDays).after(DateUtil.nowDate());
 			}).collect(Collectors.toList());//移除新股
-			Map<String, yybStockSellInfo> mapInfo = stocks.stream().collect(Collectors.groupingBy(yybStockInfo::getStockCode, CollectorsUtil.summingToObject((a, b) -> {
+			Map<String, yybStockSellInfo> mapInfo = stocks.stream().collect(Collectors.groupingBy(yybStockInfo::getStockCode, collectorsUtil.summingToObject((a, b) -> {
 				if (b == null)
 					b = new HashMap<>();
 				if (!b.containsKey("buy"))

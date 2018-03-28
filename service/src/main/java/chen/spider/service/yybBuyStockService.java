@@ -25,7 +25,7 @@ public class yybBuyStockService {
     }
 
     public List<yybBuyStock> getRecommendStockByDay(Date time) {
-        return yybBuyStockRepository.findStockBuyTime(DateUtil.formatDate(time, DateUtil.YYYYMM));
+        return yybBuyStockRepository.findStockBuyTime(DateUtil.formatDate(time, DateUtil.YYYYMMDD));
     }
 
 }

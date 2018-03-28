@@ -13,7 +13,7 @@ import java.util.stream.Collector;
 /**
  * Created by chpy on 18/2/10.
  */
-public class CollectorsUtil {
+public class collectorsUtil {
 
     static class CollectorObjectImpl<T, A, R> implements Collector<T, A, R> {
         private final Supplier<A> supplier;

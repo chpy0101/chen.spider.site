@@ -7,7 +7,7 @@ import chen.spider.spiderservice.entity.eastmoney.yybIncreaseEntity;
 import chen.spider.spiderservice.entity.eastmoney.yybJson;
 import chen.spider.spiderservice.entity.eastmoney.yybStockInfo;
 import chen.spider.common.DateUtil;
-import chen.spider.spiderservice.util.DoubleUtil;
+import chen.spider.spiderservice.util.doubleUtil;
 import chen.spider.spiderservice.util.httpHelper;
 
 import java.text.MessageFormat;
@@ -206,12 +206,12 @@ public class eastmoneyChartsController extends abstractController<List<yybIncrea
 				for (String valueStr : resJson.getData().get(0).getData()) {
 					String[] value = valueStr.split("\\|");
 					yybStockInfo entity = new yybStockInfo();
-					entity.setBuyNum(DoubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("ActBuyNum")]));
-					entity.setBuyPrice(DoubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("CPrice")]));
-					entity.setShellNum(DoubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("ActSellNum")]));
-					entity.setOneDayRate(DoubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("RChange1DC")]));
-					entity.setThreeDayRate(DoubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("RChange3DC")]));
-					entity.setFiveDayRate(DoubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("RChange5DC")]));
+					entity.setBuyNum(doubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("ActBuyNum")]));
+					entity.setBuyPrice(doubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("CPrice")]));
+					entity.setShellNum(doubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("ActSellNum")]));
+					entity.setOneDayRate(doubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("RChange1DC")]));
+					entity.setThreeDayRate(doubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("RChange3DC")]));
+					entity.setFiveDayRate(doubleUtil.parseDouble(value[YYB_STOCK_FIELDMAP.get("RChange5DC")]));
 					entity.setStockCode(value[YYB_STOCK_FIELDMAP.get("SCode")]);
 					entity.setYybCode(value[YYB_STOCK_FIELDMAP.get("SalesCode")]);
 					entity.setStockName(value[YYB_STOCK_FIELDMAP.get("SName")]);

@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
 public class DateUtil {
 
     public static final String YYYYMMDDHHMMSS = "yyyy-MM-dd HH:mm:ss";
-    public static final String YYYYMM = "yyyy-MM-dd";
+    public static final String YYYYMMDD = "yyyy-MM-dd";
 
     /**
      * 获取当前时间时间戳
