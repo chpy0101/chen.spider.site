@@ -1,5 +1,6 @@
 package chen.spider.common;
 
+import chen.spider.common.type.DifferTimeType;
 import org.springframework.util.StringUtils;
 
 import java.text.SimpleDateFormat;
@@ -121,4 +122,16 @@ public class DateUtil {
         int day = calendar.get(Calendar.DATE);
         return new Date(year, month, day);
     }
+
+    /**
+     * 获取两个日期的相差天数
+     *
+     * @param time1
+     * @param time2
+     * @return
+     */
+    public static int getDifferTimes(Date time1, Date time2, DifferTimeType type) {
+        return (int) ((time1.getTime() - time2.getTime()) / type.getValue());
+    }
+
 }

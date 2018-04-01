@@ -1,16 +1,19 @@
 package chen.spider.spiderservice.controller;
 
-import chen.spider.common.thread.ThreadHandler;
-import chen.spider.common.thread.ThreadManager;
+import chen.spider.common.DateUtil;
+import chen.spider.common.type.DifferTimeType;
 import chen.spider.pojo.yybBuyStock;
 import chen.spider.service.yybBuyStockService;
+import chen.spider.spiderservice.entity.eastmoney.stockPriceInfo;
 import chen.spider.spiderservice.entity.eastmoney.yybIncreaseEntity;
 import chen.spider.spiderservice.filter.eastmoneyChartsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -23,6 +26,9 @@ public class testController {
 
     @Autowired
     yybBuyStockService yybBuyStockService;
+
+    @Autowired
+    private HttpServletRequest request;
 
     @RequestMapping("/")
     public String test() {
@@ -53,13 +59,22 @@ public class testController {
     }
 
     @RequestMapping("/trend")
-    public String getStockTrend() {
-        ThreadHandler<String> threadHandler = new ThreadHandler<>();
-        threadHandler.addTask(() -> {
-            String txt = "test";
-            return txt;
-        });
-        ThreadManager.beginWork(threadHandler);
+    public String getStockTrend(@RequestParam(name = "date") Date date) {
+        //获取制定日期的推荐股票
+        List<yybBuyStock> stocks = yybBuyStockService.getRecommendStockByDay(date);
+        List<String> codes = stocks.stream().map(t -> t.getStockCode()).collect(Collectors.toList());
+        //获取相差天数
+        int days = DateUtil.getDifferTimes(new Date(), date, DifferTimeType.DAY_MILLISECOND);
+        eastmoneyStockController controller = new eastmoneyStockController(false, codes, days + 1);
+        List<stockPriceInfo> data = controller.getData();
+        Map<String, List<stockPriceInfo>> result = data.stream().collect(Collectors.groupingBy(stockPriceInfo::getStockCode));
+        result.forEach((key,value)->value.sort(new Comparator<stockPriceInfo>() {
+            //TODO...
+            @Override
+            public int compare(stockPriceInfo o1, stockPriceInfo o2) {
+                return 0;
+            }
+        }));
         return "";
     }
 }
