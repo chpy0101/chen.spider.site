@@ -1,10 +1,9 @@
 package chen.spider.common.thread;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -15,8 +14,8 @@ import java.util.stream.Collectors;
 public class ThreadHandler<T> {
 
 	public ThreadHandler() {
-		taskList = new ArrayList<>();
-		results = new ArrayList<>();
+		taskList = new Vector<>();
+		results = new Vector<>();
 	}
 
 	/**

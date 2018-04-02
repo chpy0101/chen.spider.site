@@ -56,7 +56,8 @@ public class collectorsUtil {
         }
     }
 
-    public static <T, R> Collector<T, Map<String, String>, R> summingToObject(BiConsumer<T, Map<String, String>> map, Function<Map<String, String>, R> completeMapper) {
+    public static <T, R> Collector<T, Map<String, String>, R> summingToObject(BiConsumer<T, Map<String, String>> map,
+                                                                              Function<Map<String, String>, R> completeMapper) {
         return new CollectorObjectImpl<>(() -> new HashMap<>(),
                 (a, b) -> map.accept(b, a), null,
                 a -> completeMapper.apply(a), new HashSet<>());
