@@ -68,12 +68,9 @@ public class testController {
         eastmoneyStockController controller = new eastmoneyStockController(false, codes, days + 1);
         List<stockPriceInfo> data = controller.getData();
         Map<String, List<stockPriceInfo>> result = data.stream().collect(Collectors.groupingBy(stockPriceInfo::getStockCode));
-        result.forEach((key,value)->value.sort(new Comparator<stockPriceInfo>() {
-            //TODO...
-            @Override
-            public int compare(stockPriceInfo o1, stockPriceInfo o2) {
-                return 0;
-            }
+        result.forEach((key, value) -> value.sort((v1, v2) -> {
+            int differ = DateUtil.getDifferTimes(v1.getDate(), v2.getDate(), DifferTimeType.DAY_MILLISECOND);
+            return differ == 0 ? differ : (differ > 0 ? -1 : 1);
         }));
         return "";
     }
