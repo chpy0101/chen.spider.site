@@ -16,6 +16,7 @@ public class ThreadManager {
             executor.setMaxPoolSize(30);
             executor.setCorePoolSize(10);
             executor.setKeepAliveSeconds(300);
+            executor.initialize();
         }
         return executor;
     }
@@ -27,6 +28,7 @@ public class ThreadManager {
         executor.setMaxPoolSize(maxPoolSize);
         executor.setCorePoolSize(corePoolSize);
         executor.setKeepAliveSeconds(aliveSec);
+        executor.initialize();
     }
 
     /**

@@ -24,6 +24,10 @@ public class stockDetail {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     @Column
     public String getStockCode() {
         return stockCode;

@@ -16,7 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class eastmoneyChartsController extends abstractController<List<yybIncreaseEntity>> {
+public class 	eastmoneyChartsController extends abstractController<List<yybIncreaseEntity>> {
 
 	//营业部地址
 	private static final String YYB_URL = "http://datainterface3.eastmoney.com//EM_DataCenter_V3/api/LHBYYBPH/GetLHBYYBPH";

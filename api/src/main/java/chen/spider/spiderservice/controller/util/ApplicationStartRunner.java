@@ -1,7 +1,7 @@
 package chen.spider.spiderservice.controller.util;
 
 import chen.spider.common.thread.ThreadManager;
-import chen.spider.spiderservice.controller.webConf.ThreadConfigSetting;
+import chen.spider.spiderservice.webConf.ThreadConfigSetting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

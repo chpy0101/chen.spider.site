@@ -1,4 +1,4 @@
-package chen.spider.spiderservice.controller.webConf;
+package chen.spider.spiderservice.webConf;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

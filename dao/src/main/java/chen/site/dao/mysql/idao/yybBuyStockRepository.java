@@ -15,7 +15,7 @@ import java.util.List;
 @Qualifier("yybBuyStockRepository")
 public interface yybBuyStockRepository extends CrudRepository<yybBuyStock, Long> {
 
-    @Query(value = "select * from spider.yybbuystock s where to_days/(s.buyDate)=to_days/(?1)", nativeQuery = true)
+    @Query(value = "select * from spider.yybbuystock s where TO_DAYS(s.buyDate)=TO_DAYS(?1)", nativeQuery = true)
     List<yybBuyStock> findStockBuyTime(@Param("time") String time);
 
 }
