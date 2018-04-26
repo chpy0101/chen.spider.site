@@ -1,6 +1,6 @@
-
 public class testMain {
 	public static void main(String[] args) {
+
 		int x = -5;
 		System.out.print(~-1);
 		System.out.print(~0);
