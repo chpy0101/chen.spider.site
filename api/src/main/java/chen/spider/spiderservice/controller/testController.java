@@ -5,6 +5,7 @@ import chen.spider.common.IntegerUtil;
 import chen.spider.common.type.DifferTimeType;
 import chen.spider.pojo.yybBuyStock;
 import chen.spider.service.yybBuyStockService;
+import chen.spider.spiderservice.contact.BaseResponse;
 import chen.spider.spiderservice.webConf.AMQPConfig;
 import chen.spider.spiderservice.entity.eastmoney.stockPriceInfo;
 import chen.spider.spiderservice.entity.eastmoney.yybIncreaseEntity;
@@ -157,6 +158,12 @@ public class testController {
             System.out.println(ex.toString());
         }
         return "OK";
+    }
+
+    @RequestMapping("/testRes")
+    @ResponseBody
+    public BaseResponse<String> testRes() {
+        return BaseResponse.success().setData("success");
     }
 
 }
