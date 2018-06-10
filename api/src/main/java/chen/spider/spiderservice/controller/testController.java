@@ -5,22 +5,24 @@ import chen.spider.common.IntegerUtil;
 import chen.spider.common.type.DifferTimeType;
 import chen.spider.pojo.yybBuyStock;
 import chen.spider.service.yybBuyStockService;
+import chen.spider.spiderservice.contact.BaseRequest;
 import chen.spider.spiderservice.contact.BaseResponse;
-import chen.spider.spiderservice.webConf.AMQPConfig;
 import chen.spider.spiderservice.entity.eastmoney.stockPriceInfo;
 import chen.spider.spiderservice.entity.eastmoney.yybIncreaseEntity;
 import chen.spider.spiderservice.entity.stockSummary;
+import chen.spider.spiderservice.entity.testEntity;
 import chen.spider.spiderservice.filter.eastmoneyChartsFilter;
+import chen.spider.spiderservice.handler.MyRestTemplate;
+import chen.spider.spiderservice.webConf.AMQPConfig;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 import org.springframework.amqp.rabbit.connection.Connection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -38,7 +40,7 @@ import java.util.stream.Stream;
 @RequestMapping("/test")
 public class testController {
 
-    @Autowired
+    @Autowired(required = false)
     Connection connection;
 
     @Autowired
@@ -46,6 +48,12 @@ public class testController {
 
     @Autowired
     private HttpServletRequest request;
+
+    @Autowired
+    ObjectMapper objectMapper;
+
+    @Autowired
+    MyRestTemplate restTemplate;
 
     @RequestMapping("/")
     public String test() {
@@ -128,7 +136,7 @@ public class testController {
         try {
             Channel channel = connection.createChannel(false);
             AMQP.Queue.DeclareOk queueResult = channel.queueDeclare(AMQPConfig.QUEUE_NAME, false, false, false, null);
-            for (String item : new String[]{"test1", "test2", "test3", "test4"}) {
+            for (String item : new java.lang.String[]{"test1", "test2", "test3", "test4"}) {
                 channel.basicPublish("", AMQPConfig.QUEUE_NAME, null, item.getBytes());
                 Thread.sleep(1000);
             }
@@ -164,6 +172,14 @@ public class testController {
     @ResponseBody
     public BaseResponse<String> testRes() {
         return BaseResponse.success().setData("success");
+    }
+
+    @RequestMapping(value = "/handler", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResponse<String> testHandler(@RequestBody BaseRequest<testEntity> request) throws JsonProcessingException {
+        //org.springframework.web.client.RestTemplate
+        restTemplate.postForEntity("https://www.baidu.com", request, String.class, "");
+        return BaseResponse.success();
     }
 
 }

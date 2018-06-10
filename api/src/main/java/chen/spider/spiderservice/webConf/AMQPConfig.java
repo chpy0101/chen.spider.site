@@ -25,10 +25,10 @@ public class AMQPConfig {
         return connectionFactory;
     }
 
-    @Bean
+    //@Bean
     public Connection getConnection(ConnectionFactory factory) {
         if (factory != null) {
-            return factory.createConnection();
+                return factory.createConnection();
         }
         LogUtil.error("rabbit factory is null host:" + HOST);
         throw new RuntimeException("rabbit factory is null");

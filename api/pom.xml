@@ -57,7 +57,10 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.rabbitmq/amqp-client -->
-
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
