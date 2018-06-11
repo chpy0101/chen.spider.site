@@ -23,7 +23,7 @@ public class MyRestTemplate extends RestTemplate {
 
     private static Field requestField;
     Logger logger = LoggerFactory.getLogger(MyRestTemplate.class);
-    private final String requestInfo = "Request url:{0} ,method: {1}, data: {2}";
+    private final String requestInfo = "Request url:::::{0} ,method::::: {1}, data::::: {2}";
 
     /* 
      * 缓存获取的feild对象,减少反射
@@ -65,17 +65,23 @@ public class MyRestTemplate extends RestTemplate {
     @Override
     public <T> T doExecute(URI url, HttpMethod method, RequestCallback requestCallback, ResponseExtractor<T> responseExtractor) throws RestClientException {
 
+        //纪录请求体日志
+        preExecute(url, method, requestCallback);
+        T response = super.doExecute(url, method, requestCallback, responseExtractor);
+        //纪录返回体日志
+        //logger.info();
+        return response;
+    }
 
+
+    public void preExecute(URI url, HttpMethod method, RequestCallback requestEntity) {
         try {
             ObjectMapper objectMapper = (ObjectMapper) SpringUtils.getBean("myObjectMapper");
-            HttpEntity resEntity = getRequestEntity(requestCallback);
+            HttpEntity resEntity = getRequestEntity(requestEntity);
             logger.info(MessageFormat.format(requestInfo, url.toString(), method.toString(), objectMapper.writeValueAsString(resEntity.getBody())));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        T response = super.doExecute(url, method, requestCallback, responseExtractor);
-        //logger.info();
-        return response;
     }
 
 
